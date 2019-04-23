@@ -1,6 +1,6 @@
 const express = require('express');
 const port = process.env.PORT || 3000;
-const lodash = require('lodash');
+const _ = require('lodash');
 
 const app = express();
 
