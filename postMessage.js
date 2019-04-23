@@ -1,8 +1,8 @@
-const postMessage = async (label, prTitle, prNumber, channelId, color, web) => {
+const postMessage = async (label, prTitle, prNumber, color, channelId, web) => {
   try {
     await web.chat.postMessage({
       channel: channelId,
-      "attachments": [
+      attachments: [
         {
           "pretext": `@djdan has marked #${prNumber} by @djdan as ${label}`,
           "fallback": `@djdan has marked #${prNumber} as ${label}`,
