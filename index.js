@@ -3,17 +3,12 @@ const { WebClient } = require('@slack/web-api');
 const bodyParser = require('body-parser');
 const _ = require('lodash');
 
-const { updateLabel } = require('./postMessage');
+const { getSlackChannelId } = require('./src/constants/channels');
+const { updateLabel } = require('./src/slack/postMessage');
 
 // Env vars
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 const port = process.env.PORT || 3000;
-
-// Constants TODO: refactor these
-const REPO_CHANNEL_MAP = {
-  groover: '#dan-test',
-}
-const getSlackChannelId = repoName => _.get(REPO_CHANNEL_MAP, repoName);
 
 if (!SLACK_TOKEN) {
   console.log('No slack token');
@@ -21,13 +16,12 @@ if (!SLACK_TOKEN) {
 }
 
 // Create instance of slack
-const web = new WebClient(SLACK_TOKEN);
+const slackClient = new WebClient(SLACK_TOKEN);
 // Create instance of express
 const app = express();
 
 // Setup middlewares
 app.use(bodyParser.json());
-
 
 // Start listening
 app.get('/', (req, res) => {
@@ -59,7 +53,17 @@ app.post('/', async (req, res) => {
         const slackChannelId = getSlackChannelId(repoName);
 
         // Post to slack
-        await updateLabel(labelName, prTitle, prNumber, prUrl, labelColor, slackChannelId, user, sender, web);
+        await updateLabel(
+          labelName,
+          prTitle,
+          prNumber,
+          prUrl,
+          labelColor,
+          slackChannelId,
+          user,
+          sender,
+          slackClient
+        );
 
         // Let GitHub know everything went well
         return res.sendStatus(200);
