@@ -1,6 +1,14 @@
 {
+  "name": "gitbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "@slack/events-api": "^2.2.0",
-    "@slack/web-api": "^5.0.1"
+    "@slack/web-api": "^5.0.1",
+    "express": "^4.16.4"
   }
 }
