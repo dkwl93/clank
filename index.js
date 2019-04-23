@@ -3,8 +3,7 @@ const { WebClient } = require('@slack/web-api');
 const bodyParser = require('body-parser');
 const _ = require('lodash');
 
-const { getSlackChannelId } = require('./src/constants/channels');
-const { updateLabel } = require('./src/slack/postMessage');
+const { handleGithubWebhook } = require('./src/webhooks/github');
 
 // Env vars
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
@@ -25,55 +24,15 @@ app.use(bodyParser.json());
 
 // Start listening
 app.get('/', (req, res) => {
-  res.send(JSON.stringify({ Hello: 'World' }))
+  res.send(JSON.stringify({ Hello: 'World' }));
 });
 
 // Github hook
 // TODO Only allow access from github
-app.post('/', async (req, res) => {
-  const actionType = _.get(req, ['body', 'action']);
-
-  // Can it not have an action??
-  if (actionType) {
-    if (actionType ==='labeled') {
-      const labelName = _.get(req, 'body.label.name');
-
-      // Only post to slack if labels are relevant
-      if (labelName === 'Ready for Review' || labelName === 'Question') {
-        // Get the things I need
-        const prTitle = _.get(req, 'body.pull_request.title');
-        const prNumber = _.get(req, 'body.pull_request.number');
-        const prUrl = _.get(req, 'body.pull_request.html_url');
-        const user = _.get(req, 'body.pull_request.user.login');
-
-        const labelColor = _.get(req, 'body.label.color');
-        const sender = _.get(req, 'body.sender.login');
-        const repoName = _.get(req, 'body.repository.name');
-
-        const slackChannelId = getSlackChannelId(repoName);
-
-        // Post to slack
-        await updateLabel(
-          labelName,
-          prTitle,
-          prNumber,
-          prUrl,
-          labelColor,
-          slackChannelId,
-          user,
-          sender,
-          slackClient
-        );
-
-        // Let GitHub know everything went well
-        return res.sendStatus(200);
-      }
-    }
-  }
-
-  res.sendStatus(400);
+app.post('/webhooks/github', async (req, res) => {
+  return await handleGithubWebhook(req, res);
 });
 
 app.listen(port, () => {
   console.log('DanBot listening on port ', port);
-})
+});
