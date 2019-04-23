@@ -17,7 +17,7 @@ const updateLabel = async (labelName, prTitle, prNumber, prUrl, labelColor, chan
       parse: 'full',
       attachments: [
         {
-          "pretext": `@djdan has marked #${prNumber} by @${slackId} as ${labelName}`,
+          "pretext": `@djdan has marked #${prNumber} by @${slackId} as *${labelName}*`,
           "fallback": `@djdan has marked #${prNumber} as ${labelName}`,
           "color": `#${labelColor}`,
           "title": `#${prNumber}`,
