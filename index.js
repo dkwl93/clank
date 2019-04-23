@@ -6,7 +6,9 @@ const _ = require('lodash');
 const { updateLabel } = require('./postMessage');
 
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
-const CHANNEL = 'CJ3LQT2EL';
+const SLACK_CHANNEL_MAP = {
+  groover: 'CJ3LQT2EL'
+}
 const port = process.env.PORT || 3000;
 const web = new WebClient(process.env.SLACK_TOKEN);
 
@@ -14,12 +16,13 @@ if (!SLACK_TOKEN) {
   console.log('No slack token');
   return;
 }
-
 const app = express();
 
 // Setup middlewares
 app.use(bodyParser.json());
 
+
+const getSlackChannelId = repoName => _.get(SLACK_CHANNEL_MAP, repoName);
 
 // Start listening
 app.get('/', (req, res) => {
@@ -44,9 +47,12 @@ app.post('/', async (req, res) => {
         const labelColor = _.get(req, 'body.label.color');
         const user = _.get(req, 'body.pull_request.user.login');
         const sender = _.get(req, 'body.sender.login');
+        const repoName = _.get(req, 'body.repository.name');
+
+        const slackChannelId = getSlackChannelId(repoName);
 
         // Post to slack
-        await updateLabel(labelName, prTitle, prNumber, prUrl, labelColor, CHANNEL, user, sender, web);
+        await updateLabel(labelName, prTitle, prNumber, prUrl, labelColor, slackChannelId, user, sender, web);
 
         // Let GitHub know everything went well
         return res.sendStatus(200);
