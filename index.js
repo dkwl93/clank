@@ -35,8 +35,9 @@ app.post('/', async (req, res) => {
       const labelName = _.get(req, 'body.label.name');
       const prTitle = _.get(req, 'body.pull_request.title');
       const prNumber = _.get(req, 'body.pull_request.number');
+      const prUrl = _.get(req, 'body.pull_request.url'):
       const color = _.get(req, 'body.label.color');
-      await postMessage(labelName, prTitle, prNumber, color, CHANNEL, web);
+      await postMessage(labelName, prTitle, prNumber, prUrl, color, CHANNEL, web);
       res.send(200);
       return;
     }
