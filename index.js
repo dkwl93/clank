@@ -5,24 +5,29 @@ const _ = require('lodash');
 
 const { updateLabel } = require('./postMessage');
 
+// Env vars
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
+const port = process.env.PORT || 3000;
+
+// Constants TODO: refactor these
 const SLACK_CHANNEL_MAP = {
   groover: 'CJ3LQT2EL'
 }
-const port = process.env.PORT || 3000;
-const web = new WebClient(process.env.SLACK_TOKEN);
+const getSlackChannelId = repoName => _.get(SLACK_CHANNEL_MAP, repoName);
 
 if (!SLACK_TOKEN) {
   console.log('No slack token');
   return;
 }
+
+// Create instance of slack
+const web = new WebClient(SLACK_TOKEN);
+// Create instance of express
 const app = express();
 
 // Setup middlewares
 app.use(bodyParser.json());
 
-
-const getSlackChannelId = repoName => _.get(SLACK_CHANNEL_MAP, repoName);
 
 // Start listening
 app.get('/', (req, res) => {
@@ -30,6 +35,7 @@ app.get('/', (req, res) => {
 });
 
 // Github hook
+// TODO Only allow access from github
 app.post('/', async (req, res) => {
   const actionType = _.get(req, ['body', 'action']);
 
@@ -44,8 +50,9 @@ app.post('/', async (req, res) => {
         const prTitle = _.get(req, 'body.pull_request.title');
         const prNumber = _.get(req, 'body.pull_request.number');
         const prUrl = _.get(req, 'body.pull_request.html_url');
-        const labelColor = _.get(req, 'body.label.color');
         const user = _.get(req, 'body.pull_request.user.login');
+
+        const labelColor = _.get(req, 'body.label.color');
         const sender = _.get(req, 'body.sender.login');
         const repoName = _.get(req, 'body.repository.name');
 
@@ -63,10 +70,6 @@ app.post('/', async (req, res) => {
   res.sendStatus(400);
 });
 
-app.get('/health', (req, res) => {
-  res.sendStatus(200);
-})
-
 app.listen(port, () => {
-  console.log('GitBot listening on port ', port);
+  console.log('DanBot listening on port ', port);
 })

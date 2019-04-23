@@ -2,20 +2,22 @@ const _ = require('lodash');
 
 const SLACK_USER_MAP = {
   dkwl93: 'djdan',
-  djoptional: 'anon',
+  djoptional: 'DJ Optional',
 }
 
 const getSlackId = (slackUsername) =>
-  _.get(SLACK_USER_MAP, slackUsername, slackUsername);
+  _.get(SLACK_USER_MAP, slackUsername, 'Someone');
 
 const updateLabel = async (labelName, prTitle, prNumber, prUrl, labelColor, channelId, user, sender, web) => {
 
+  // Get slack ids from github IDs
   const userSlackId = getSlackId(user);
   const senderSlackId = getSlackId(sender);
 
   try {
     await web.chat.postMessage({
       channel: channelId,
+      // Need this to tag ppl in slack
       parse: 'full',
       attachments: [
         {
@@ -34,7 +36,6 @@ const updateLabel = async (labelName, prTitle, prNumber, prUrl, labelColor, chan
   } catch (error) {
     console.log(error.data);
   }
-
 }
 
 module.exports = {
