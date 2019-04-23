@@ -1,20 +1,23 @@
 const _ = require('lodash');
 
 const SLACK_USER_MAP = {
-  djdan: 'U6TQSM5FG',
+  dkwl93: 'djdan',
 }
 
 const getSlackId = (slackUsername) =>
   _.get(SLACK_USER_MAP, slackUsername, slackUsername);
 
-const updateLabel = async (labelName, prTitle, prNumber, prUrl, labelColor, channelId, web) => {
+const updateLabel = async (labelName, prTitle, prNumber, prUrl, labelColor, channelId, user, web) => {
+
+  const slackId = getSlackId(user);
+
   try {
     await web.chat.postMessage({
       channel: channelId,
       parse: 'full',
       attachments: [
         {
-          "pretext": `@djdan has marked #${prNumber} by @djdan as ${labelName}`,
+          "pretext": `@djdan has marked #${prNumber} by @${slackId} as ${labelName}`,
           "fallback": `@djdan has marked #${prNumber} as ${labelName}`,
           "color": `#${labelColor}`,
           "title": `#${prNumber}`,
