@@ -8,9 +8,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
+  const {
+    action,
+    label,
+  } = req;
+
   res.send(JSON.stringify({
-    Message: 'Welcome to gitbot',
-    Request: req,
+    Message: `Github Action: ${action}`,
   }));
 });
 
