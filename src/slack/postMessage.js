@@ -46,7 +46,7 @@ const updateLabel = async (
         }
       ],
       as_user: false,
-      username: 'DanBot',
+      username: 'Clank',
       icon_emoji: ':robot_face:',
     })
   } catch (error) {
