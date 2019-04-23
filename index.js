@@ -43,9 +43,10 @@ app.post('/', async (req, res) => {
         const prUrl = _.get(req, 'body.pull_request.html_url');
         const labelColor = _.get(req, 'body.label.color');
         const user = _.get(req, 'body.pull_request.user.login');
+        const sender = _.get(req, 'body.sender.login');
 
         // Post to slack
-        await updateLabel(labelName, prTitle, prNumber, prUrl, labelColor, CHANNEL, user, web);
+        await updateLabel(labelName, prTitle, prNumber, prUrl, labelColor, CHANNEL, user, sender, web);
 
         // Let GitHub know everything went well
         return res.sendStatus(200);
