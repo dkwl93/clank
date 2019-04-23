@@ -29,22 +29,19 @@ app.get('/', (req, res) => {
 
 // Github hook
 app.post('/', async (req, res) => {
-  console.log(req);
-  const actionType = _.get(req, ['headers', 'x-github-event'])
+  const actionType = _.get(req, ['body', 'action']);
 
-  // TODO Fix this
-  const action = 'labeled';
-  const labelName = _.get(req, 'label.name');
+  if (actionType) {
+    if (actionType ==='labeled') {
+      const labelName = _.get(req, 'label.name');
+      const message = `Label added: ${labelName}`;
+      await postMessage(message, CHANNEL, web);
+      res.send(200);
+      return;
+    }
+  }
 
-  res.send(200);
-
-  return
-
-  const message = `Label added: ${labelName}`;
-
-  await postMessage(message, CHANNEL, web);
-
-  res.send(200);
+  res.send(400);
 });
 
 app.get('/test', (req, res) => {
