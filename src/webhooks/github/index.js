@@ -47,10 +47,10 @@ const handleGithubWebhook = async (req, res) => {
 
   switch (actionType) {
     case 'labeled':
-      await handleLabelUpdate(req, res);
+      return await handleLabelUpdate(req, res);
     // Add more action handlers here
     default:
-      res.status(400).send('actionType is undefined');
+      return res.status(400).send('actionType is undefined');
   }
 };
 
