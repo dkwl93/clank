@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 const SLACK_USER_MAP = {
   dkwl93: 'djdan',
 };
