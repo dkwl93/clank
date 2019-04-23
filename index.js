@@ -40,7 +40,7 @@ app.post('/', async (req, res) => {
         // Get the things I need
         const prTitle = _.get(req, 'body.pull_request.title');
         const prNumber = _.get(req, 'body.pull_request.number');
-        const prUrl = _.get(req, 'body.pull_request.url');
+        const prUrl = _.get(req, 'body.pull_request.html_url');
         const labelColor = _.get(req, 'body.label.color');
         const user = _.get(req, 'body.pull_request.user.login');
 
