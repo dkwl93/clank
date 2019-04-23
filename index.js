@@ -10,10 +10,10 @@ const SLACK_TOKEN = process.env.SLACK_TOKEN;
 const port = process.env.PORT || 3000;
 
 // Constants TODO: refactor these
-const SLACK_CHANNEL_MAP = {
-  groover: 'CJ3LQT2EL'
+const REPO_CHANNEL_MAP = {
+  groover: '#dan-test',
 }
-const getSlackChannelId = repoName => _.get(SLACK_CHANNEL_MAP, repoName);
+const getSlackChannelId = repoName => _.get(REPO_CHANNEL_MAP, repoName);
 
 if (!SLACK_TOKEN) {
   console.log('No slack token');
