@@ -13,16 +13,15 @@ const web = new WebClient(process.env.SLACK_TOKEN);
 if (!SLACK_TOKEN) {
   console.log('No slack token');
   return;
-} else {
-  console.log('SLACK_TOKEN: ', SLACK_TOKEN);
 }
-
 
 const app = express();
 
 // Setup middlewares
 app.use(bodyParser.json());
 
+
+// Start listening
 app.get('/', (req, res) => {
   res.send(JSON.stringify({ Hello: 'World' }))
 });
