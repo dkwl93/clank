@@ -25,35 +25,30 @@ const updateLabel = async (
   user,
   sender,
 ) => {
-
   // Get slack ids from github IDs
   const userSlackId = getSlackId(user);
   const senderSlackId = getSlackId(sender);
 
-  try {
-    await slackClient.chat.postMessage({
-      channel: channelId,
-      // Need this to tag ppl in slack
-      parse: 'full',
-      attachments: [
-        {
-          pretext: `${senderSlackId} marked #${prNumber} by @${userSlackId} as *${labelName}*`,
-          fallback: `${senderSlackId} marked #${prNumber} by @${userSlackId} as *${labelName}*`,
-          color: `#${labelColor}`,
-          title: `#${prNumber}`,
-          title_link: prUrl,
-          text: `${prTitle}`
-        }
-      ],
-      as_user: false,
-      username: 'Clank',
-      icon_emoji: ':robot_face:',
-    })
-  } catch (error) {
-    console.log(error.data);
-  }
-}
+  await slackClient.chat.postMessage({
+    channel: channelId,
+    // Need this to tag ppl in slack
+    parse: 'full',
+    attachments: [
+      {
+        pretext: `${senderSlackId} marked #${prNumber} by @${userSlackId} as *${labelName}*`,
+        fallback: `${senderSlackId} marked #${prNumber} by @${userSlackId} as *${labelName}*`,
+        color: `#${labelColor}`,
+        title: `#${prNumber}`,
+        title_link: prUrl,
+        text: `${prTitle}`,
+      },
+    ],
+    as_user: false,
+    username: 'Clank',
+    icon_emoji: ':robot_face:',
+  });
+};
 
 module.exports = {
   updateLabel,
-}
+};
