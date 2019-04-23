@@ -1,5 +1,6 @@
 const express = require('express');
 const port = process.env.PORT || 3000;
+const lodash = require('lodash');
 
 const app = express();
 
@@ -7,14 +8,12 @@ app.get('/', (req, res) => {
   res.send(JSON.stringify({ Hello: 'World' }))
 });
 
+// Github hook
 app.post('/', (req, res) => {
-  const {
-    action,
-    label,
-  } = req;
+  const actionType = _.get(req, ['headers', 'X-GitHub-Event'])
 
   res.send(JSON.stringify({
-    Message: `Github Action: ${action}`,
+    Message: `Github Action: ${actionType}`,
   }));
 });
 
