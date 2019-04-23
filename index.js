@@ -33,7 +33,7 @@ app.post('/', async (req, res) => {
 
   if (actionType) {
     if (actionType ==='labeled') {
-      const labelName = _.get(req, 'label.name');
+      const labelName = _.get(req, 'body.label.name');
       const message = `Label added: ${labelName}`;
       await postMessage(message, CHANNEL, web);
       res.send(200);
