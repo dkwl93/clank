@@ -1,12 +1,13 @@
-const postMessage = async (label, prTitle, prNumber, channelId, web) => {
+const postMessage = async (label, prTitle, prNumber, channelId, color, web) => {
   try {
     await web.chat.postMessage({
       channel: channelId,
       "attachments": [
         {
-          "fallback": `Dan has marked #${prNumber} as ${label}`,
-          "color": "#36a64f",
-          "title": `Dan has marked #${prNumber} as ${label}`,
+          "pretext": `@djdan has marked #${prNumber} by @djdan as ${label}`,
+          "fallback": `@djdan has marked #${prNumber} as ${label}`,
+          "color": `#${color}`,
+          "title": `#${prNumber}`,
           "title_link": "https://api.slack.com/",
           "text": `${prTitle}`
         }
