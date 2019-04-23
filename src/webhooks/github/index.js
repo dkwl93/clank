@@ -33,12 +33,13 @@ const handleLabelUpdate = async (req, res) => {
       slackChannelId,
       user,
       sender,
-      slackClient,
     );
 
     // Let GitHub know everything went well
-    return res.sendStatus(200);
+    return res.status(200).send('Message posted to Slack');
   }
+
+  return res.status(200).send(`Label is ${labelName} so not posted to Slack`);
 };
 
 const handleGithubWebhook = async (req, res) => {
@@ -49,7 +50,7 @@ const handleGithubWebhook = async (req, res) => {
       await handleLabelUpdate(req, res);
     // Add more action handlers here
     default:
-      res.sendStatus(400);
+      res.status(400).send('actionType is undefined');
   }
 };
 

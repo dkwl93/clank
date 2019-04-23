@@ -1,5 +1,4 @@
 const express = require('express');
-const { WebClient } = require('@slack/web-api');
 const bodyParser = require('body-parser');
 const _ = require('lodash');
 
@@ -9,13 +8,6 @@ const { handleGithubWebhook } = require('./src/webhooks/github');
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 const port = process.env.PORT || 3000;
 
-if (!SLACK_TOKEN) {
-  console.log('No slack token');
-  return;
-}
-
-// Create instance of slack
-const slackClient = new WebClient(SLACK_TOKEN);
 // Create instance of express
 const app = express();
 
@@ -24,7 +16,11 @@ app.use(bodyParser.json());
 
 // Start listening
 app.get('/', (req, res) => {
-  res.send(JSON.stringify({ Hello: 'World' }));
+  if (SLACK_TOKEN) {
+    res.status(200).send('GitBot is up and running')
+  } else {
+    res.status(400).send('No Slack Token provided');
+  }
 });
 
 // Github hook
@@ -34,5 +30,5 @@ app.post('/webhooks/github', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('DanBot listening on port ', port);
+  console.log('GitBot listening on port ', port);
 });

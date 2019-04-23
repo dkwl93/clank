@@ -1,6 +1,19 @@
 const _ = require('lodash');
+// ========= Setup Slack ========
+const { WebClient } = require('@slack/web-api');
 
 const { getSlackId } = require('../constants/teamMembers');
+
+const SLACK_TOKEN = process.env.SLACK_TOKEN;
+
+if (!SLACK_TOKEN) {
+  console.log('No slack token');
+  return;
+}
+
+// Create instance of slack
+const slackClient = new WebClient(SLACK_TOKEN);
+// ===== Finish Slack Setup =====
 
 const updateLabel = async (
   labelName,
@@ -11,7 +24,6 @@ const updateLabel = async (
   channelId,
   user,
   sender,
-  slackClient
 ) => {
 
   // Get slack ids from github IDs

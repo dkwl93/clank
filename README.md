@@ -12,6 +12,7 @@ This bot requires the following permissions:
   * Webhooks - Pull requests
     * Fires off a POST request when any of these events are triggered
       * Pull request opened, closed, reopened, edited, assigned, unassigned, review requested, review request removed, labeled, unlabeled, synchronized, ready for review, locked, or unlocked.
+
 Explicitly ONLY grant the minimum permissions required to limit API requests and also for security reasons. GitHub access is READ-ONLY with no way of mutating the codebase directly.
 
 ## Getting Started
