@@ -10,6 +10,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   res.send(JSON.stringify({
     Message: 'Welcome to gitbot',
+    Request: req,
   }));
 });
 
