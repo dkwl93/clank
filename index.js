@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // Start listening
 app.get('/', (req, res) => {
   if (SLACK_TOKEN) {
-    res.status(200).send('GitBot is up and running')
+    res.status(200).send('Clank is up and running')
   } else {
     res.status(400).send('No Slack Token provided');
   }
@@ -30,5 +30,5 @@ app.post('/webhooks/github', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('GitBot listening on port ', port);
+  console.log('Clank listening on port ', port);
 });
