@@ -1,4 +1,4 @@
-# GitBot
+# Clank
 This bot listens to label updates in GitHub and posts the updated label to Slack.
 
 ## Permissions
