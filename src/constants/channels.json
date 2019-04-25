@@ -6,5 +6,9 @@
   "reddit-clone": {
     "slackChannel": "#pull-request-reviews",
     "baseBranch": "master"
+  },
+  "groover": {
+    "slackChannel": "pull-request-reviews",
+    "baseBranch": "master"
   }
 }
