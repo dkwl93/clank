@@ -1,4 +1,10 @@
 {
-  "clank": "#pull-request-reviews",
-  "reddit-clone": "#pull-request-reviews"
+  "clank": {
+    "slackChannel": "#pull-request-reviews",
+    "baseBranch": "master"
+  },
+  "reddit-clone": {
+    "slackChannel": "#pull-request-reviews",
+    "baseBranch": "master"
+  }
 }
