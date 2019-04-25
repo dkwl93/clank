@@ -1,6 +1,6 @@
 {
   "clank": {
-    "slackChannel": "#pull-request-reviews",
+    "slackChannel": "#clank-test",
     "baseBranch": "master"
   },
   "reddit-clone": {
