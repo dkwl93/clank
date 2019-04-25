@@ -2,7 +2,7 @@ const _ = require('lodash');
 const { getSlackChannelId } = require('../../../constants');
 const { updateLabel } = require('../../../slack/postMessage');
 
-const handleLabelUpdate = async (payload) => {
+const handleLabelUpdate = async (payload, res) => {
   const labelName = _.get(payload, 'label.name');
 
   // Only post to slack if labels are relevant
@@ -24,7 +24,7 @@ const handleLabelUpdate = async (payload) => {
     const slackChannelId = getSlackChannelId(repoName);
 
     // Post to slack
-    await updateLabel(
+    return await updateLabel(
       labelName,
       prTitle,
       prNumber,
@@ -35,12 +35,7 @@ const handleLabelUpdate = async (payload) => {
       sender,
       repoName,
     );
-
-    // Let GitHub know everything went well
-    return res.status(200).send('Message posted to Slack');
   }
-
-  return res.status(200).send(`Label is ${labelName} so not posted to Slack`);
 };
 
 module.exports = {

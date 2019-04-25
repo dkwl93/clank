@@ -26,11 +26,10 @@ app.use(webhooks.middleware);
 
 // Start listening
 app.get('/', (req, res) => {
-  if (SLACK_TOKEN) {
-    res.status(200).send('Clank is up and running');
-  } else {
+  if (!SLACK_TOKEN) {
     res.status(400).send('No Slack Token provided');
   }
+  res.status(200).send('Clank is up and running');
 });
 
 // Github hook
