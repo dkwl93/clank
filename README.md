@@ -16,14 +16,15 @@ This bot requires the following permissions:
 Explicitly ONLY grant the minimum permissions required to limit API requests and also for security reasons. GitHub access is READ-ONLY with no way of mutating the codebase directly.
 
 ## Getting Started
-* Clone this repo
+* Fork this repo
+* Edit the secret config files listed below (gitignored!)
 * run `yarn` or `npm install` to install dependencies
 * run `npm run dev` to start the bot locally
 
 ## Configuration
-Within the constants folder, there are 2 files which determine which channel the message gets posted into. Please change the following files in order for the slackbot to match your desired configuration.
+Within the constants folder, there are 2 files which determine which channel the message gets posted into. Please add the following files in order for the slackbot to match your desired configuration.
 
-### teamMembers.js
+### src/constants/teamMembers.js
 This contains a map between github usernames and slack IDs. Required for the bot to know *who* to tag in Slack.
 ```
 {
@@ -31,7 +32,7 @@ This contains a map between github usernames and slack IDs. Required for the bot
 }
 ```
 
-### channels.js
+### src/constants/channels.js
 This contains a map between the repository name and the slack channel. Required for the bot to know *which* channel to post into.
 
 ```
