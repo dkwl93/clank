@@ -47,7 +47,7 @@ const updateLabel = async (
     ],
     as_user: false,
     username: 'Clank',
-    icon_emoji: ':robot_face:',
+    icon_emoji: ':clank_bot:',
   });
 };
 
