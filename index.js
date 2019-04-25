@@ -1,34 +1,44 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const _ = require('lodash');
+const WebhooksApi = require('@octokit/webhooks');
 
-const { handleGithubWebhook } = require('./src/webhooks/github');
+const { handleLabelUpdate } = require('./src/webhooks/github/pull_request');
 
 // Env vars
-const SLACK_TOKEN = process.env.SLACK_TOKEN;
-const port = process.env.PORT || 3000;
+const {
+  SLACK_TOKEN,
+  GITHUB_SECRET,
+} = process.env;
+const PORT = process.env.PORT || 3000;
 
 // Create instance of express
 const app = express();
+// Create instance of webhook handler
+const webhooks = WebhooksApi({
+  secret: GITHUB_SECRET,
+  path: '/webhooks/github',
+});
 
 // Setup middlewares
 app.use(bodyParser.json());
+app.use(webhooks.middleware);
 
 // Start listening
 app.get('/', (req, res) => {
   if (SLACK_TOKEN) {
-    res.status(200).send('Clank is up and running')
+    res.status(200).send('Clank is up and running');
   } else {
     res.status(400).send('No Slack Token provided');
   }
 });
 
 // Github hook
-// TODO Only allow access from github
-app.post('/webhooks/github', async (req, res) => {
-  return await handleGithubWebhook(req, res);
-});
+webhooks.on('pull_request', async ({ id, name, payload }) => {
+  console.log(id, name, payload);
+  return await handleLabelUpdate(payload);
+})
 
-app.listen(port, () => {
-  console.log('Clank listening on port ', port);
+app.listen(PORT, () => {
+  console.log('Clank listening on port', PORT);
 });
