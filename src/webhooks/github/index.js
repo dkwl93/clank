@@ -33,6 +33,7 @@ const handleLabelUpdate = async (req, res) => {
       slackChannelId,
       user,
       sender,
+      repoName,
     );
 
     // Let GitHub know everything went well
@@ -43,7 +44,6 @@ const handleLabelUpdate = async (req, res) => {
 };
 
 const handleGithubWebhook = async (req, res) => {
-  console.log('BODY', _.get(req, 'body'));
   const actionType = _.get(req, ['body', 'action']);
 
   switch (actionType) {

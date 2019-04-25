@@ -24,6 +24,7 @@ const updateLabel = async (
   channelId,
   user,
   sender,
+  repoName,
 ) => {
   // Get slack ids from github IDs
   const userSlackId = getSlackId(user);
@@ -38,7 +39,7 @@ const updateLabel = async (
         pretext: `${senderSlackId} marked #${prNumber} by ${userSlackId} as *${labelName}*`,
         fallback: `${senderSlackId} marked #${prNumber} by ${userSlackId} as *${labelName}*`,
         color: `#${labelColor}`,
-        title: `#${prNumber}`,
+        title: `${repoName} #${prNumber}`,
         title_link: prUrl,
         text: `${prTitle}`,
       },
