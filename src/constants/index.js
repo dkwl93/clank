@@ -24,4 +24,5 @@ module.exports = {
   getSlackChannelId,
   getRepoBaseBranch,
   getSlackId,
+  getSenderSlackId,
 };

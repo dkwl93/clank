@@ -1,4 +1,4 @@
-const handleLabelUpdate = require('./handleLabelUpdate');
+const { handleLabelUpdate } = require('./handleLabelUpdate');
 
 module.exports = {
   handleLabelUpdate,
