@@ -34,6 +34,7 @@ const updateLabel = async (
     channel: channelId,
     // Need this to tag ppl in slack
     parse: 'full',
+    link_names: true,
     attachments: [
       {
         pretext: `${senderSlackId} marked #${prNumber} by ${userSlackId} as *${labelName}*`,
