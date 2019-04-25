@@ -34,8 +34,7 @@ app.get('/', (req, res) => {
 });
 
 // Github hook
-webhooks.on('pull_request', async ({ id, name, payload }) => {
-  console.log(id, name, payload);
+webhooks.on('pull_request', async ({ payload }) => {
   return await handleLabelUpdate(payload);
 })
 
