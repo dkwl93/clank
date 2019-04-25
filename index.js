@@ -38,6 +38,11 @@ webhooks.on('pull_request', async ({ payload }) => {
   return await handleLabelUpdate(payload);
 })
 
+webhooks.on('error', (error) => {
+  console.log('ERROR:', error);
+  res.status(500).send('Something wrong with the webhook! Check logs for error')
+})
+
 app.listen(PORT, () => {
   console.log('Clank listening on port', PORT);
 });
