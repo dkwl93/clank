@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
-const { SLACK_USER_MAP } = require('./teamMembers');
-const { REPO_CHANNEL_MAP } = require('./channels');
+const SLACK_USER_MAP = require('./teamMembers');
+const REPO_CHANNEL_MAP = require('./channels');
 
 const getSlackChannelId = repoName => _.get(REPO_CHANNEL_MAP, repoName);
 

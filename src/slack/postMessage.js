@@ -2,7 +2,7 @@ const _ = require('lodash');
 // ========= Setup Slack ========
 const { WebClient } = require('@slack/web-api');
 
-const { getSlackId } = require('../constants/teamMembers');
+const { getSlackId } = require('../constants');
 
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 
