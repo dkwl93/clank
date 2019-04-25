@@ -2,7 +2,7 @@ const _ = require('lodash');
 // ========= Setup Slack ========
 const { WebClient } = require('@slack/web-api');
 
-const { getSlackId } = require('../constants');
+const { getSlackId, getSenderSlackId } = require('../constants');
 
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 
@@ -28,7 +28,7 @@ const updateLabel = async (
 ) => {
   // Get slack ids from github IDs
   const userSlackId = getSlackId(user);
-  const senderSlackId = getSlackId(sender);
+  const senderSlackId = getSenderSlackId(sender);
 
   await slackClient.chat.postMessage({
     channel: channelId,

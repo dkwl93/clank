@@ -11,6 +11,9 @@ const getSlackId = githubUsername => {
   return slackUsername ? `@${slackUsername}` : githubUsername;
 };
 
+const getSenderSlackId = githubUsername =>
+  _.get(SLACK_USER_MAP, githubUsername, githubUsername);
+
 module.exports = {
   getSlackChannelId,
   getSlackId,
