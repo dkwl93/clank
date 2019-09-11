@@ -33,15 +33,20 @@ Explicitly ONLY grant the minimum permissions required to limit API requests and
 * Set up the repo
   * Go to settings in the repo
   * `Add webhook` under the webhooks menu
-  * Set webhook url from the deployed slackbot (explained below)
+  * Set webhook url from the deployed slackbot (explained below) (webhookurl.com/webhook/github)
   * content type: `application/json`
   * Set a secret (GITHUB_SECRET)
   * Select the events this bot needs (pull_requests)
 * Deploy the slack app
-  * Deploy the repo to your favourite cloud provider (heroku, netlify etc.)
+  * Deploy the repo to your favourite cloud provider (heroku, etc.)
   * Provide the following envvars to your environment
     * `SLACK_TOKEN`
     * `GITHUB_SECRET`
+* Configure Github labels
+    * 'Ready for Review'
+    * 'Question'
+    * 'Ready to Land'
+* Create slack emoji for `:clank_bot:`
 
 ## Configuration
 Within the constants folder, there are 2 files which determine which channel the message gets posted into. Please add the following files in order for the slackbot to match your desired configuration.

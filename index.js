@@ -6,10 +6,7 @@ const WebhooksApi = require('@octokit/webhooks');
 const { handleLabelUpdate } = require('./src/webhooks/github/pull_request');
 
 // Env vars
-const {
-  SLACK_TOKEN,
-  GITHUB_SECRET,
-} = process.env;
+const { SLACK_TOKEN, GITHUB_SECRET } = process.env;
 const PORT = process.env.PORT || 3000;
 
 // Create instance of express
@@ -35,18 +32,20 @@ app.get('/', (req, res) => {
 // Github hook
 webhooks.on('pull_request', async ({ payload }) => {
   // TODO Move this out into handlePullRequestEvent.js
-  const { action } =  payload;
+  const { action } = payload;
   if (action === 'labeled') {
     return await handleLabelUpdate(payload);
   }
 
   return;
-})
+});
 
-webhooks.on('error', (error) => {
+webhooks.on('error', error => {
   console.log('ERROR:', error);
-  res.status(500).send('Something wrong with the webhook! Check logs for error')
-})
+  res
+    .status(500)
+    .send('Something wrong with the webhook! Check logs for error');
+});
 
 app.listen(PORT, () => {
   console.log('Clank listening on port', PORT);
