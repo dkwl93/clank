@@ -1,14 +1,6 @@
 {
-  "clank": {
-    "slackChannel": "#clank-test",
-    "baseBranch": "master"
-  },
-  "reddit-clone": {
-    "slackChannel": "#pull-request-reviews",
-    "baseBranch": "master"
-  },
-  "groover": {
-    "slackChannel": "pull-request-reviews",
+  "maple-app": {
+    "slackChannel": "#dev",
     "baseBranch": "master"
   }
 }
