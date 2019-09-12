@@ -3,7 +3,10 @@ const bodyParser = require('body-parser');
 const _ = require('lodash');
 const WebhooksApi = require('@octokit/webhooks');
 
-const { handleLabelUpdate } = require('./src/webhooks/github/pull_request');
+const {
+  handleLabelUpdate,
+  handlePush,
+} = require('./src/webhooks/github/pull_request');
 
 // Env vars
 const { SLACK_TOKEN, GITHUB_SECRET } = process.env;
@@ -35,6 +38,8 @@ webhooks.on('pull_request', async ({ payload }) => {
   const { action } = payload;
   if (action === 'labeled') {
     return await handleLabelUpdate(payload);
+  } else if (action === 'push') {
+    return await handlePush(payload);
   }
 
   return;
