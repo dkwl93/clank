@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 webhooks.on('pull_request', async ({ payload }) => {
   // TODO Move this out into handlePullRequestEvent.js
   const { action } = payload;
+  console.log('^ action: ', action);
   if (action === 'labeled') {
     return await handleLabelUpdate(payload);
   } else if (action === 'push') {
