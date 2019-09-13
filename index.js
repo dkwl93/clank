@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 // Github hook
 webhooks.on('pull_request', async ({ payload }) => {
   // TODO Move this out into handlePullRequestEvent.js
+  const { action } = payload;
   if (action === 'labeled') {
     return await handleLabelUpdate(payload);
   }
